@@ -259,28 +259,4 @@ describe('XCUITestDriver - gestures', function () {
       });
     });
   });
-  describe('tap with tapWithShortPressDuration cap', function () {
-    // needs a special cap, so has to be in its own session
-    before(async function () {
-      driver = await initSession(_.defaults({
-        tapWithShortPressDuration: 0.01
-      }, UICATALOG_CAPS));
-    });
-    after(async function () {
-      await deleteSession();
-    });
-
-    it('should tap on the element', async function () {
-      let el1 = await driver.elementByAccessibilityId('Action Sheets');
-      let action = new wd.TouchAction(driver);
-      action.tap({el: el1});
-      action.perform();
-
-      // pause a moment so the alert can animate
-      await B.delay(500);
-
-      let el2 = await driver.elementByAccessibilityId('Okay / Cancel');
-      el2.should.exist;
-    });
-  });
 });
